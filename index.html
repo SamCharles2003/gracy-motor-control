@@ -20,8 +20,7 @@
             border-radius: 20%;
             height: 300px;
             width: 300px;
-            margin-left:43%;
-            margin-top:100px;
+
         }
         
         button {
@@ -107,16 +106,28 @@
             currentDirection = null;
             sendMovement("stop");
         }
+
+        
+        $(document).ready(function() {
+            $('button').on('mousedown touchstart', function() {
+                startMovement($(this).attr('id'));
+            });
+
+            $('button').on('mouseup mouseleave touchend', function() {
+                stopMovement();
+            });
+        });
+
     </script>
 </head>
 <body>
     <body oncontextmenu="return false;">
     <h1 style="font-family: 'Montserrat';text-align:center;">GRACY's Motor Control</h1>
     <div class="container">
-        <button id="forward" onmousedown="startMovement('forward')" onmouseup="stopMovement()"></button>
-        <button id="reverse" onmousedown="startMovement('reverse')" onmouseup="stopMovement()"></button>
-        <button id="left" onmousedown="startMovement('left')" onmouseup="stopMovement()"></button>
-        <button id="right" onmousedown="startMovement('right')" onmouseup="stopMovement()"></button>
+        <button id="forward">Forward</button>
+        <button id="reverse">Reverse</button>
+        <button id="left">Left</button>
+        <button id="right">Right</button>
     </div>
 </body>
 </html>
