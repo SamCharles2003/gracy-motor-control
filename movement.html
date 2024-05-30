@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gracy's Control</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <style>
+        body {
+     
+        }
+        
+        .container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 5px solid blue;
+            box-shadow: 15px 15px 15px 0 rgba(0, 136, 255, 0.696);
+            border-radius: 20%;
+            height: 300px;
+            width: 300px;
+            margin-left:43%;
+            margin-top:100px;
+        }
+        
+        button {
+            position: absolute;
+            padding: 10px 20px;
+            font-size: 20px;
+            border-radius:20px;
+            border: 2.5px solid blue;
+            transition:transform .9s;
+        }
+        
+        #forward {
+            top: 20px;
+        }
+        
+        #reverse {
+            bottom: 20px;
+        }
+        
+        #left {
+            left: 20px;
+         
+        }
+        
+        #right {
+            right: 20px;
+            
+        }
+
+        button:hover
+        {
+            transform:scale(1.5);
+            color: blue; 
+            background-color: rgba(28, 28, 254, 0.37); 
+            box-shadow: 0 4px 8px 0 rgba(0, 136, 255, 0.696);
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-functions.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+     const firebaseConfig = {
+    apiKey: "AIzaSyAnpxSh1bGCSwAgymK4idCF1YjqAYUlRN8",
+    authDomain: "gracy-754de.firebaseapp.com",
+    databaseURL: "https://gracy-754de-default-rtdb.firebaseio.com",
+    projectId: "gracy-754de",
+    storageBucket: "gracy-754de.appspot.com",
+    messagingSenderId: "171025924944",
+    appId: "1:171025924944:web:af5e4c32af2955dfea6255",
+    measurementId: "G-8V5421N06K"
+  };
+      firebase.initializeApp(firebaseConfig);
+</script>
+
+    <script>
+        var currentDirection = null;
+        var db = firebase.database();
+        function sendMovement(direction) {
+    
+               
+
+                         db.ref("/status" ).set({
+                         status: direction
+                            });
+                    console.log("Success:", direction);
+    
+        }
+
+        function startMovement(direction) {
+            currentDirection = direction;
+            sendMovement(direction);
+        }
+
+        function stopMovement() {
+            currentDirection = null;
+            sendMovement("stop");
+        }
+    </script>
+</head>
+<body>
+    <h1 style="font-family: 'Montserrat';text-align:center;">GRACY's Motor Control</h1>
+    <div class="container">
+        <button id="forward" onmousedown="startMovement('forward')" onmouseup="stopMovement()">Forward</button>
+        <button id="reverse" onmousedown="startMovement('reverse')" onmouseup="stopMovement()">Reverse</button>
+        <button id="left" onmousedown="startMovement('left')" onmouseup="stopMovement()">Left</button>
+        <button id="right" onmousedown="startMovement('right')" onmouseup="stopMovement()">Right</button>
+    </div>
+</body>
+</html>
