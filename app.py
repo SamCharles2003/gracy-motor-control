@@ -10,7 +10,7 @@ app = Flask(__name__)
 logging.basicConfig(filename='error.log', level=logging.DEBUG)
 
 # Configure the Google API key
-os.environ['GOOGLE_API_KEY'] = 'YOUR_GOOGLE_API_KEY_HERE'
+os.environ['GOOGLE_API_KEY'] = ''AIzaSyDpp_vnAlO1-1_2TcPsDGm4dhN41F2ZPCU''
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
 # Initialize the generative model and chat
