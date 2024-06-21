@@ -11,6 +11,9 @@ app = Flask(__name__)
 model = genai.GenerativeModel('gemini-pro')
 chat = model .start_chat(history=[])
 
+@app.route('/')
+def hello_world():
+    return "Gracy's Live"
 
 @app.route(rule='/gemini',methods=['POST'])
 def gemini_response_chat()->str:
