@@ -1,5 +1,5 @@
 # Flask web framework
 Flask==2.3.2
-
+gunicorn
 # Google Generative AI
 google-generativeai==0.1.0
