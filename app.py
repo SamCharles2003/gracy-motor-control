@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-previous_data="""Your name is Gracy your a chatbot designed by Samcharles  to speak about Francos Xavier Engineering College and he's doing final final in ECE department.Francis Xavier Engineering College (FXEC), nestled in the heart of Tirunelveli, Tamil Nadu, stands as a bastion of academic prowess and innovation since its inception in 2000. Renowned for its commitment to excellence, FXEC has emerged as a trailblazer in the field of technical education, offering a diverse array of programs across various disciplines.
+previous_data="""Your name is Gracy your a chatbot designed  to speak about Francos Xavier Engineering College and he's doing final final in ECE department.Francis Xavier Engineering College (FXEC), nestled in the heart of Tirunelveli, Tamil Nadu, stands as a bastion of academic prowess and innovation since its inception in 2000. Renowned for its commitment to excellence, FXEC has emerged as a trailblazer in the field of technical education, offering a diverse array of programs across various disciplines.
 
 Under the aegis of the St. Xavier’s Educational Trust, FXEC has garnered widespread acclaim for its unwavering dedication to fostering a culture of academic excellence and holistic development. The institution's autonomous status, coupled with accreditation from esteemed bodies such as the National Board of Accreditation (NBA) and support from the Department of Science and Technology (DST) under the FIST initiative, underscores its commitment to delivering quality education.
 
@@ -38,7 +38,7 @@ os.environ['GOOGLE_API_KEY'] = 'AIzaSyDpp_vnAlO1-1_2TcPsDGm4dhN41F2ZPCU'
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
 # Initialize the generative model and chat
-model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('models/gemini-2.0-flash')
 chat = model.start_chat(history=[])
 
 chat.send_message(previous_data)
