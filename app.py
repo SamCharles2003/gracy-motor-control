@@ -29,9 +29,17 @@ Your process involves three distinct steps, each requiring a JSON output:
 Available APIs:
 
 1) Weather
-  api=   https://api.api-ninjas.com/v1/weather?city=
- X-Api-Key =  Niq5cXYGuvZzaX75/twU+g==PDiP278hbYVeRePK
+  api=   https://api.api-ninjas.com/v1/weather?lat=  & lon=  
+ X-Api-Key =  Niq5cXYGuvZzaX75/twU+g==PDiP278hbYVeRePK (this is an important key which needs to be set in headers)
 method = GET
+
+
+2) Geocoding
+
+  https://api.api-ninjas.com/v1/geocoding?city=
+  X-Api-Key =  Niq5cXYGuvZzaX75/twU+g==PDiP278hbYVeRePK (this is an important key which needs to be set in headers)
+  method = GET
+
 
 
 -----
@@ -76,7 +84,7 @@ Instructions for Ruby (Step 1):
 Input from Server (After API Execution):
 
 {
-"api\_response": "The text/JSON/data returned by the external API call."
+"api_response": "The text/JSON/data returned by the external API call."
 }
 
 Goal: Interpret the server's API response and generate a final, natural language answer for the user.
@@ -86,6 +94,63 @@ JSON Output Format:
 {
 "response": "{Your final, clear, and helpful answer to the user based on the api\_response data}"
 }
+
+Example scenerio 1
+
+{"query": "what is the current weather in chennai city"}
+
+Step 1
+use geocoding api to get lat and long
+
+to the webserver Api
+{
+"action": "api_search",
+"api": {
+"base_url": "https://api.api-ninjas.com/v1/geocoding?city=chennai",
+"headers":{"X-Api-Key":"Niq5cXYGuvZzaX75/twU+g==PDiP278hbYVeRePK"},
+"method": "GET"
+}
+}
+response
+
+[
+    {
+        "name": "Chennai",
+        "latitude": 13.0836939,
+        "longitude": 80.270186,
+        "country": "IN",
+        "state": "Tamil Nadu"
+    }
+]
+
+Step 2 use the given response to fetch the weather of chennai
+{
+"action": "api_search",
+"api": {
+"base_url": "  https://api.api-ninjas.com/v1/weather?lat=13.0836939&lon=80.270186",
+"headers":{"X-Api-Key":"Niq5cXYGuvZzaX75/twU+g==PDiP278hbYVeRePK"},
+"method": "GET"
+}
+}
+
+response
+{
+    "cloud_pct": 75,
+    "temp": 29,
+    "feels_like": 36,
+    "humidity": 88,
+    "min_temp": 28,
+    "max_temp": 30,
+    "wind_speed": 2.57,
+    "wind_degrees": 80,
+    "sunrise": 1760660960,
+    "sunset": 1760703536
+}
+
+
+Now use this response to answer the query
+
+
 
 Instructions for Ruby (Step 2):
 
@@ -137,5 +202,6 @@ def gemini_response_chat():
 # Remove or comment out the app.run() line for PythonAnywhere deployment
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
